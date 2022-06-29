@@ -4,9 +4,9 @@ import { AiOutlineClose } from "react-icons/ai";
 
 import logo from "../../images/logo.png";
 
-const NavBarItem = ({ title, classprops }) => (
+const NavBarItem = ({ title, classProps, classPropsDropdown }) => (
   <li
-    className={`mx-4 hover:relative hover:bottom-1 hover:text-yellow-500 cursor-pointer ${classprops}`}
+    className={`mx-4 cursor-pointer hover:text-yellow-500 hover:${classProps} ${classPropsDropdown}`}
   >
     {title}
   </li>
@@ -26,7 +26,11 @@ const Navbar = () => {
       </div>
       <ul className="text-white md:flex hidden list-none flex-row justify-between items-center flex-initial">
         {["Market", "Exchange", "Tutorials", "Wallets"].map((item, index) => (
-          <NavBarItem key={item + index} title={item} />
+          <NavBarItem
+            key={item + index}
+            title={item}
+            classProps={"relative bottom-1"}
+          />
         ))}
         <li className="bg-[#2952e3] py-2 px-7 mx-4 rounded-full cursor-pointer hover:bg-[#2546bd] hover:relative hover:bottom-1">
           Login
@@ -49,8 +53,8 @@ const Navbar = () => {
         )}
         {toggleMenu && (
           <ul
-            className="z-10 fixed -top-0 -right-2 p-3 w-[70vw] h-screen shadow-2xl md:hidden list-none
-            flex flex-col justify-start items-end rounded-md blue-glassmorphism text-white animate-slide-in"
+            className="z-10 fixed -top-0 -right-2 p-3 w-2/5 h-screen shadow-2xl md:hidden list-none
+            flex flex-col justify-start items-center rounded-md blue-glassmorphism text-white animate-slide-in"
           >
             <li className="text-xl w-full my-2">
               <AiOutlineClose onClick={() => setToggleMenu(false)} />
@@ -60,7 +64,7 @@ const Navbar = () => {
                 <NavBarItem
                   key={item + index}
                   title={item}
-                  classprops="my-2 text-lg"
+                  classPropsDropdown="my-2 text-lg"
                 />
               )
             )}
