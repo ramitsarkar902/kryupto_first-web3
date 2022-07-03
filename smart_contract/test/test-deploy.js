@@ -14,7 +14,7 @@ describe("Transactions", function () {
   });
 
   it("should add data to blockchain", async function () {
-    const tx = await transactionsContract.addToBlockChain(
+    const tx = await transactionsContract.addToBlockchain(
       "0x621611585965cb195a628ddbf631db6c50b3291c",
       1000000000000000,
       "hello test",
