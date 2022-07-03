@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { AiFillPlayCircle } from "react-icons/ai";
 import { SiEthereum } from "react-icons/si";
 import { BsInfoCircle } from "react-icons/bs";
-
+import { TransactionContext } from "../context/TransactionContext";
 import { Loader } from "./";
 
 const companyCommonStyles =
   "min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-sm font-light text-white";
 
-const Input = ({ placeholder, type, value, name, onChange }) => {
+const Input = ({ placeholder, type, value, name, handleChange }) => {
   return (
     <>
       <input
@@ -16,7 +16,7 @@ const Input = ({ placeholder, type, value, name, onChange }) => {
         type={type}
         name={name}
         value={value}
-        onChange={onChange}
+        onChange={(e) => handleChange(e, name)}
         steps="0.0001"
         className="w-full white-glassmorphism text-sm my-2 rounded-sm p-2 outline-none bg-transparent text-white border-none text-left"
       />
@@ -25,8 +25,23 @@ const Input = ({ placeholder, type, value, name, onChange }) => {
 };
 
 const Welcome = () => {
-  const connectWallet = async () => {};
-  const handleChange = () => {};
+  const {
+    currentAccount,
+    connectWallet,
+    formData,
+    handleChange,
+    sendTransaction,
+  } = useContext(TransactionContext);
+
+  const handleSubmit = (e) => {
+    const { addressTo, amount, keyword, message } = formData;
+    e.preventDefault();
+
+    if (!addressTo || !amount || !keyword || !message) return;
+
+    sendTransaction();
+  };
+
   return (
     <div className="flex w-full justify-center items-center">
       <div className="flex md:flex-row flex-col items-start justify-between md:p-20 py-12 px-4">
@@ -39,14 +54,18 @@ const Welcome = () => {
             Explore the crypto world. Buy and sell cryptocurrencies easily on
             kryupto.
           </p>
-          <button
-            type="button"
-            onClick={connectWallet}
-            className="flex flex-row justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd] md:w-auto w-full"
-          >
-            <AiFillPlayCircle className="text-white mr-2" />
-            <p className="text-white text-base font-semibold">Connect Wallet</p>
-          </button>
+          {!currentAccount && (
+            <button
+              type="button"
+              onClick={connectWallet}
+              className="flex flex-row justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd]"
+            >
+              <AiFillPlayCircle className="text-white mr-2" />
+              <p className="text-white text-base font-semibold">
+                Connect Wallet
+              </p>
+            </button>
+          )}
 
           <div className="grid sm:grid-cols-3 grid-cols-2 w-full mt-10">
             <div className={`rounded-tl-2xl ${companyCommonStyles}`}>
@@ -113,7 +132,10 @@ const Welcome = () => {
             {false ? (
               <Loader />
             ) : (
-              <button className="text-white w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer transition ease-in-out delay-100 hover:scale-105 duration-300">
+              <button
+                className="text-white w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer transition ease-in-out delay-100 hover:scale-105 duration-300"
+                onClick={handleSubmit}
+              >
                 Send Now
               </button>
             )}
