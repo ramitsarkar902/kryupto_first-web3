@@ -8,12 +8,12 @@ const main = async () => {
 
   await transactionsContract.deployed();
 
-  console.log(`Deployed contract to: ${transactionContract.address}`);
+  console.log(`Deployed contract to: ${transactionsContract.address}`);
 
   if (network.config.chainId === 4 && process.env.ETHERSCAN_API_KEY) {
     console.log("Waiting for block confirmations...");
-    await simpleStorage.deployTransaction.wait(6);
-    await verify(simpleStorage.address, []);
+    await transactionsContract.deployTransaction.wait(6);
+    await verify(transactionsContract.address, []);
   }
 };
 
