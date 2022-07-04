@@ -85,9 +85,10 @@ const Transactions = () => {
           </h3>
         )}
 
-        <div className="flex flex-wrap justify-center items-center mt-10">
+        <div className="flex flex-wrap justify-center items-center mt-10 overflow-scroll overflow-x-hidden">
           {[...dummyData, ...transactions]
             .reverse()
+            .slice(0, 6)
             .map((transaction, index) => (
               <TransactionsCard key={index} {...transaction} />
             ))}

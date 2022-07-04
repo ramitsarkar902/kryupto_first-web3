@@ -44,7 +44,6 @@ const Welcome = () => {
   };
 
   const shortenAddress = (address) => {
-    if ((address = "")) return "";
     return (
       address.substring(0, 6) + "..." + address.substring(address.length - 4)
     );
@@ -104,7 +103,9 @@ const Welcome = () => {
               </div>
               <div>
                 <p className="text-white font-light text-sm">
-                  {shortenAddress(currentAccount)}
+                  {currentAccount
+                    ? shortenAddress(currentAccount)
+                    : "Please connect wallet"}
                 </p>
                 <p className="text-white font-semibold text-lg mt-1">
                   Ethereum
