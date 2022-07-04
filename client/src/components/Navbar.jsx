@@ -25,7 +25,7 @@ const Navbar = () => {
         />
       </div>
       <ul className="text-white md:flex hidden list-none flex-row justify-between items-center flex-initial">
-        {["Market", "Exchange", "Tutorials", "Wallets"].map((item, index) => (
+        {["Market", "Exchange", "RickRolls", "Wallets"].map((item, index) => (
           <NavBarItem
             key={item + index}
             title={item}
@@ -59,7 +59,7 @@ const Navbar = () => {
             <li className="text-xl w-full my-2">
               <AiOutlineClose onClick={() => setToggleMenu(false)} />
             </li>
-            {["Market", "Exchange", "Tutorials", "Wallets"].map(
+            {["Market", "Exchange", "RickRolls", "Wallets"].map(
               (item, index) => (
                 <NavBarItem
                   key={item + index}
